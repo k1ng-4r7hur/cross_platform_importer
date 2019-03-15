@@ -1,0 +1,52 @@
+Chef likes cooking. But more than that, he likes to give gifts. And now he wants to give his girlfriend an unforgettable gift. But unfortunately he forgot the password to the safe where the money he saved for the gift is kept.
+
+But he knows how to hack the safe. To do this, you need to correctly answer questions asked by the embedded computer. The computer is very strange, and asks special questions, sometimes it can ask about 10000 question (really weird). Because of this, Chef wants you to write a program that will help him to crack the safe.
+
+The questions are different, but there is only one type of question. Several numbers are given and between them one of three characters: *, +, - can be inserted. Note that in this case there is no priority for the operators, that is, if + is the before multiplication, you must first execute the operation of addition, and then multiplication (1 - 2 * 3 must be interpreted as (1 - 2) * 3 = -3 and not -5). The computer asks the minimum possible value of any valid expression.
+
+
+ans.
+var t,i,a:longint;
+    n:byte;
+    smax,smin:array[1..10] of int64;
+
+function max(a:longint;b:int64):int64;
+begin
+    if a>b then max:=a else max:=b;
+end;
+
+function min(a:longint;b:int64):int64;
+begin
+    if a>b then min:=b else min:=a;
+end;
+
+begin
+    readln(t);
+    repeat
+        dec(t);
+        readln(n);
+        read(a);
+        if n=1 then writeln(a)
+        else
+            begin
+                smax[1]:=a;smin[1]:=a;
+                for i:=2 to n do
+                    begin
+                        read(a);
+                        smax[i]:=max(smax[i-1]+a,smax[i-1]-a);
+                        smin[i]:=min(smin[i-1]+a,smin[i-1]-a);
+                        if a>0 then
+                            begin
+                                smax[i]:=max(smax[i],smax[i-1]*a);
+                                smin[i]:=min(smin[i],smin[i-1]*a);
+                            end
+                        else
+                            begin
+                                smax[i]:=max(smax[i],smin[i-1]*a);
+                                smin[i]:=min(smin[i],smax[i-1]*a);
+                            end;
+                    end;
+                writeln(smin[n]);
+            end;
+    until t=0;
+end.

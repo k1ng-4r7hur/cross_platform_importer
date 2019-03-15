@@ -1,0 +1,40 @@
+Chef has N subordinates. In order to complete a very important order he will choose exactly K of them. He can't choose less than K since it will be not enough to complete the order in time. On the other hand if he chooses more than K subordinates he can't control them during the operation. Help him to find the number of ways he can choose the team to complete this very important order.
+
+ans.
+var N, K, a, b, c,  j, i, x : qword;
+    t : LongInt;
+
+Function nzd(x, y : qword): qword;
+Begin
+  if y = 0
+    then nzd := x
+    else nzd := nzd(y, x mod y);
+end;
+
+begin
+  Readln(t);
+  For t := 1 to t do
+  begin
+    readln(n,k);
+    if k > n   then begin writeln(0); continue; end;
+    if k > n-k then k := n-k;
+
+    c := 1;
+    i := 1;
+    while i <= k do
+    begin
+      a := nzd(c, i);
+      c := c div a;
+      j := i div a;
+      b := nzd(n-i+1, j);
+      j := j div b;
+      b := (n-i+1) div b;
+//      x := i div j;
+      c := c * b div j;
+      inc(i);
+    end;
+
+    writeln(c);
+  end;
+end.
+

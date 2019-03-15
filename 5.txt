@@ -1,0 +1,35 @@
+Rohit dreams he is in a shop with an infinite amount of marbles. He is allowed to select n marbles. There are marbles of k different colors. From each color there are also infinitely many marbles. Rohit wants to have at least one marble of each color, but still there are a lot of possibilities for his selection. In his effort to make a decision he wakes up. Now he asks you how many possibilities for his selection he would have had. Assume that marbles of equal color can't be distinguished, and the order of the marbles is irrelevant.
+
+ans.
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(in.readLine());
+        
+		for(; t>0; t--){
+		    String[] lengths = in.readLine().trim().split(" ");
+		    int marbles = Integer.parseInt(lengths[0]);
+		    int colors = Integer.parseInt(lengths[1]);
+		    
+		    int n = marbles-1;
+		    int k = colors-1;
+		    
+		    long res = 1;
+		    k = (k>n/2)? n-k : k;
+		    
+		    for(int i=0; i<k; i++){
+		        res = res * (n-i);
+		        res = res/ (i+1);
+		    }
+		    
+		     System.out.println(res);
+		}
+	}
+}

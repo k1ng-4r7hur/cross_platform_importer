@@ -1,0 +1,69 @@
+Johnny was asked by his math teacher to compute nn (n to the power of n, where n is an integer), and has to read his answer out loud. This is a bit of a tiring task, since the result is probably an extremely large number, and would certainly keep Johnny occupied for a while if he were to do it honestly. But Johnny knows that the teacher will certainly get bored when listening to his answer, and will sleep through most of it! So, Johnny feels he will get away with reading only the first k digits of the result before the teacher falls asleep, and then the last k digits when the teacher wakes up.
+
+ans.
+uses  math;
+const eps=0.00000000001;
+var f1,f2:text;
+T,n,k:longint;
+scs:int64;
+r:longint;
+d:array[1..9] of longint;
+
+Function ModPow(sm:longint):longint;
+var so:int64;
+begin
+        if sm=0 then exit(1);
+        if sm mod 2 =0 then begin so:=ModPow(sm div 2);Exit((so*so) mod r); End
+        else Exit((int64(ModPow(sm - 1))*n) mod r);
+end;
+
+procedure process;
+var i,j:longint;
+v:extended;
+S:int64;
+bd:longint;
+so:int64;
+st:string;
+begin
+        scs:=trunc(n*log10(n))+1;
+//        v:=n*log10(n);
+
+        r:=1;
+        for i:=1 to k do r:=r*10;
+        so:=ModPow(n);
+        str(so,st);
+        while length(st)<k do st:='0'+st;
+
+        if scs=k then
+        begin
+          writeln(f2,st,' ',st);
+          exit;
+        end;
+        S:=0;
+        bd:=1;
+        for i:=1 to k do
+        begin
+          S:=S*10;
+          for j:=bd to 9 do
+          if (log10(S+j)+(scs-i)<=int64(n)*log10(n)) and (int64(n)*log10(n)<log10(S+j+1)+(scs-i)) then D[i]:=j;
+
+          S:=S+D[i];
+          bd:=0;
+        end;
+        write(f2,s,' ');
+        writeln(f2,st);
+end;
+
+begin
+        assigN(f1,'');reset(f1);
+        assign(f2,'');rewrite(F2);
+        readln(F1,T);
+        while T>0 do
+        begin
+          readln(f1,n,k);
+          process;
+          dec(T);
+        end;
+        close(f1);
+        close(F2);
+end.

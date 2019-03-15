@@ -1,0 +1,19 @@
+var A: array [0..100] of qword;
+    N, i, j, k, l  : LongInt;
+
+Begin
+  readln(N);
+
+  if n > 100 then begin writeln('Yes'); halt; end;
+
+  For i := 1 to n do read(a[i]);
+
+  For i := 1 to N-3 do
+    For j := i+1 to N-2 do
+      For k := j+1 to N-1 do
+        For l := k+1 to N do
+          if a[i] xor a[j] xor a[k] xor a[l] = 0
+            then begin writeln('Yes'); halt; end;
+
+  Writeln('No');
+end.
